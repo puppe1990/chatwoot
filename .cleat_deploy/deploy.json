@@ -1,0 +1,15 @@
+{
+  "runtime": "rails",
+  "solo_server": true,
+  "processes": {
+    "web": "bundle exec rails server -p $PORT -b 0.0.0.0",
+    "worker": "bundle exec sidekiq -C config/sidekiq.yml"
+  },
+  "release_command": "POSTGRES_STATEMENT_TIMEOUT=600s bundle exec rails db:chatwoot_prepare",
+  "release_timeout_s": 1200,
+  "addons": [
+    "postgres:pgvector",
+    "redis"
+  ],
+  "memory_max_mb": 1536
+}
